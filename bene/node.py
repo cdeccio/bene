@@ -89,8 +89,8 @@ class Node(object):
             self.deliver_packet(packet, link)
         else:
             # check if unicast packet is for me
-            for link in self.links:
-                if link.address == packet.destination_address:
+            for mylink in self.links:
+                if mylink.address == packet.destination_address:
                     logger.info("%s received packet" % self.hostname)
                     self.deliver_packet(packet, link)
                     return
