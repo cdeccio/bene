@@ -96,17 +96,17 @@ class TCP(Connection):
                            sequence=sequence, ack_number=ack)
 
         if sequence in self.drop and not sequence in self.dropped:
+            # drop the packet
             self.dropped.append(sequence)
             self.plot_sequence(sequence,'drop')
             sender_logger.warning("%s (%s) dropping TCP segment to %s for %d" % (
                 self.node.hostname, self.source_address, self.destination_address, packet.sequence))
-            return
-
-        # send the packet
-        self.plot_sequence(sequence,'send')
-        sender_logger.debug("%s (%s) sending TCP segment to %s for %d" % (
-            self.node.hostname, self.source_address, self.destination_address, packet.sequence))
-        self.transport.send_packet(packet)
+        else:
+            # send the packet
+            self.plot_sequence(sequence,'send')
+            sender_logger.debug("%s (%s) sending TCP segment to %s for %d" % (
+                self.node.hostname, self.source_address, self.destination_address, packet.sequence))
+            self.transport.send_packet(packet)
 
         # set a timer
         if not self.timer:
