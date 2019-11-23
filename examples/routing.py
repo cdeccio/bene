@@ -22,10 +22,9 @@ class RoutingApp(object):
     def receive_packet(self, packet, **kwargs):
         pass
 
-def five():
+def five_line():
     # parameters
     Sim.scheduler.reset()
-    logging.getLogger('bene.node').setLevel(logging.INFO)
 
     # setup network
     net = Network('../networks/five-nodes-line.txt', DVRouter)
@@ -53,7 +52,6 @@ def five():
 def five_ring():
     # parameters
     Sim.scheduler.reset()
-    logging.getLogger('bene.node').setLevel(logging.INFO)
 
     # setup network
     net = Network('../networks/five-nodes-ring.txt', DVRouter)
@@ -97,7 +95,6 @@ def five_ring():
 def fifteen():
     # parameters
     Sim.scheduler.reset()
-    logging.getLogger('bene.node').setLevel(logging.INFO)
 
     # setup network
     net = Network('../networks/fifteen-nodes.txt', DVRouter)
@@ -193,7 +190,7 @@ def main():
     if args[0] == '15':
         fifteen()
     elif args[0] == '5line':
-        five()
+        five_line()
     elif args[0] == '5ring':
         five_ring()
 
