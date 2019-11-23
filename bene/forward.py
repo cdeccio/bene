@@ -11,13 +11,12 @@ class ForwardingTable(object):
         if subnet in self.entries:
             del self.entries[subnet]
 
-    def get_forwarding_entry(self, ip_address):
+    def get_forwarding_entry(self, subnet):
         '''
         Return the entry having the longest prefix match of ip_address.  If
         there is no match, return (None, None).
         '''
         #FIXME
-        subnet = Subnet(ip_address, ip_address.address_len)
         if subnet in self.entries:
             return self.entries[subnet]
         else:

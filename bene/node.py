@@ -3,6 +3,7 @@ import logging
 
 from .forward import ForwardingTable
 from .ip import BROADCAST_IP_ADDRESS, IPAddress, Subnet
+from .packet import Packet
 from .sim import Sim
 
 logger = logging.getLogger(__name__)
@@ -63,6 +64,8 @@ class Node(object):
         self.forwarding_table.add_entry(subnet, link, next_hop)
 
     def delete_forwarding_entry(self, subnet):
+        if isinstance(subnet, IPAddress):
+            subnet = Subnet(subnet, subnet.address_len)
         self.forwarding_table.remove_entry(subnet)
 
     # -- ARP table --
@@ -123,8 +126,13 @@ class Node(object):
             # forward the packet
             self.forward_unicast_packet(packet)
 
-    def get_forwarding_entry(self, packet):
-        link, next_hop_address = self.forwarding_table.get_forwarding_entry(packet.destination_address)
+    def get_forwarding_entry(self, subnet):
+        if isinstance(subnet, Packet):
+            subnet = subnet.destination_address
+        if isinstance(subnet, IPAddress):
+            subnet = Subnet(subnet, subnet.prefix_len)
+
+        link, next_hop_address = self.forwarding_table.get_forwarding_entry(subnet)
 
         return link, next_hop_address
 
