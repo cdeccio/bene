@@ -131,11 +131,17 @@ def fifteen():
     p = Packet(destination_address=net.nodes['n9'].get_address('n6'), length=100)
     Sim.scheduler.add(20.7, event=p, handler=net.nodes['n13'].send_packet)
 
+    # send packet from n9 to n14 and from n14 to n9
+    p = Packet(destination_address=net.nodes['n14'].get_address('n2'), length=100)
+    Sim.scheduler.add(20.8, event=p, handler=net.nodes['n9'].send_packet)
+    p = Packet(destination_address=net.nodes['n9'].get_address('n6'), length=100)
+    Sim.scheduler.add(20.9, event=p, handler=net.nodes['n14'].send_packet)
+
     # send packet from n7 to n15 and from n15 to n7
     p = Packet(destination_address=net.nodes['n15'].get_address('n14'), length=100)
-    Sim.scheduler.add(20.8, event=p, handler=net.nodes['n7'].send_packet)
+    Sim.scheduler.add(21.0, event=p, handler=net.nodes['n7'].send_packet)
     p = Packet(destination_address=net.nodes['n7'].get_address('n8'), length=100)
-    Sim.scheduler.add(20.9, event=p, handler=net.nodes['n15'].send_packet)
+    Sim.scheduler.add(21.1, event=p, handler=net.nodes['n15'].send_packet)
 
     # at t = 22, bring down link between n2 and n8
     Sim.scheduler.add(22, event=None, handler=net.nodes['n8'].get_link('n2').down)
