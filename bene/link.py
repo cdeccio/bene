@@ -69,8 +69,12 @@ class Link(object):
         delay = (8.0 * packet.length) / self.bandwidth
         packet.transmission_delay += delay
         packet.propagation_delay += self.propagation
+
+        receiver = self.endpoint
+        receiving_link = receiver.get_link(self.startpoint.hostname)
+
         # schedule packet arrival at end of link
-        Sim.scheduler.add(delay=delay + self.propagation, event=(packet, self), handler=self.endpoint.receive_packet)
+        Sim.scheduler.add(delay=delay + self.propagation, event=(packet, receiving_link), handler=receiver.receive_packet)
         # schedule next transmission
         Sim.scheduler.add(delay=delay, event='finish', handler=self.get_next_packet)
 

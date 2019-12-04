@@ -87,17 +87,17 @@ class Node(object):
         self.forward_packet(packet)
 
     def receive_packet(self, packet_link):
-        packet, link = packet_link
+        packet, incoming_link = packet_link
         # handle broadcast packets
         if packet.destination_address == BROADCAST_IP_ADDRESS:
             logger.debug("%s received broadcast packet" % self.hostname)
-            self.deliver_packet(packet, link)
+            self.deliver_packet(packet, incoming_link)
         else:
             # check if unicast packet is for me
             for link in self.links:
                 if link.address == packet.destination_address:
                     logger.info("%s received packet" % self.hostname)
-                    self.deliver_packet(packet, link)
+                    self.deliver_packet(packet, incoming_link)
                     return
 
         if self._allow_forward:
