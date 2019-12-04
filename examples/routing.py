@@ -25,7 +25,6 @@ class RoutingApp(object):
 def five():
     # parameters
     Sim.scheduler.reset()
-    logging.getLogger('bene.node').setLevel(logging.INFO)
 
     # setup network
     net = Network('../networks/five-nodes-line.txt', DVRouter)
@@ -53,7 +52,6 @@ def five():
 def five_ring():
     # parameters
     Sim.scheduler.reset()
-    logging.getLogger('bene.node').setLevel(logging.INFO)
 
     # setup network
     net = Network('../networks/five-nodes-ring.txt', DVRouter)
@@ -97,7 +95,6 @@ def five_ring():
 def fifteen():
     # parameters
     Sim.scheduler.reset()
-    logging.getLogger('bene.node').setLevel(logging.INFO)
 
     # setup network
     net = Network('../networks/fifteen-nodes.txt', DVRouter)
